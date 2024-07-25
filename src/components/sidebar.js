@@ -12,6 +12,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import HomeIcon from "@mui/icons-material/Home";
 import { sidebarData } from "../lib/mock/mockData";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 const SideBar = ({ openDrawer }) => {
   const [openMenu, setOpenMenu] = useState({});
@@ -69,6 +70,9 @@ const SideBar = ({ openDrawer }) => {
                   {service.subItems && (
                     <Collapse in={openMenu[index]} timeout='auto' unmountOnExit>
                       <List component='div' disablePadding>
+                        <Box className='pl-2'>
+                          <ChevronLeftIcon onClick={handleClick(index)} />
+                        </Box>
                         {service.subItems.map((subItem, subIndex) => {
                           return (
                             <ListItemButton

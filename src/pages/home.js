@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../layout/Layout";
-import { Box, Card, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -28,20 +28,27 @@ const Home = () => {
     <>
       <Layout>
         <Box>
-          <Box
-            sx={{
-              pb: 3,
-            }}>
+          <Box className='pb-3 flex flex-wrap items-center justify-between'>
             <Typography
               variant='h5'
               fontWeight='bold'
               className='text-primary uppercase'>
               Physical assessment
             </Typography>
+            <Button
+              variant='contained'
+              sx={{
+                backgroundColor: "#7e63ed",
+                "&:hover": {
+                  backgroundColor: "#7e63ed",
+                },
+              }}>
+              Answers
+            </Button>
           </Box>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <Card className='px-6 py-4'>
+              <Card className='px-6 py-4 !rounded-2xl'>
                 {questionData.map((question, index) => (
                   <Grid container spacing={2} key={index}>
                     <Grid item xs={12}>
