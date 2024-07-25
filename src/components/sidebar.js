@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Collapse,
@@ -5,91 +6,166 @@ import {
   Drawer,
   List,
   ListItemButton,
-  ListItemText,
+  ListItemText
 } from "@mui/material";
-import React, { useState } from "react";
-import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import HomeIcon from "@mui/icons-material/Home";
 import { sidebarData } from "../lib/mock/mockData";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { useNavigate, useParams } from "react-router-dom";
+import { subSidebarData } from "../helper/helper";
+import { ExpandLess } from "@mui/icons-material";
 
-const SideBar = ({ openDrawer }) => {
-  const [openMenu, setOpenMenu] = useState({});
-  const [open, setOpen] = useState(false);
+const SideBar = () => {
+  const navigate = useNavigate();
+  const params = useParams();
 
-  const handleClick = (index) => () => {
-    setOpenMenu((prevOpenMenu) => ({
-      ...prevOpenMenu,
-      [index]: !prevOpenMenu[index],
-    }));
+  const [openSidebar, setOpenSidebar] = useState(false);
+  const [subItemOpen, setSubItemOpen] = useState({});
+  const [selectedMenu, setSelectedMenu] = useState("");
+  const [selectedSubMenu, setSelectedSubMenu] = useState("");
+
+  useEffect(() => {
+    if (params.queId) {
+      setSelectedSubMenu(params.queId);
+      setSubItemOpen({
+        [params.queName]: true
+      });
+    }
+    if (params.queName) {
+      setSelectedMenu(params.queName);
+    }
+  }, []);
+
+  const handleSideItem = (item) => {
+    setSelectedMenu(item.value);
+    setSubItemOpen({
+      [item.value]: !subItemOpen[item.value]
+    });
+
+    if (item.subItems) {
+      setSubItemOpen({
+        [item.value]: !subItemOpen[item.value]
+      });
+
+      const subItem = item.subItems.find((subItem) => {
+        return subItem.value === selectedSubMenu;
+      });
+
+      setSelectedSubMenu(subItem ? subItem.value : item.subItems[0].value);
+      navigate(
+        `/${item.value}/${subItem ? subItem.value : item.subItems[0].value}`
+      );
+    } else {
+      navigate(`/${item.value}`);
+    }
+  };
+
+  const handleSideSubItem = (item, subItem) => {
+    setSelectedSubMenu(subItem.value);
+    navigate(`/${item.value}/${subItem.value}`);
   };
 
   const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
+    setOpenSidebar(newOpen);
   };
+
+  const updatedSidebar = sidebarData.map((item) => {
+    if (item.value === "mileage") {
+      return {
+        ...item,
+        subItems: subSidebarData(item.value)
+      };
+    } else {
+      return {
+        ...item
+      };
+    }
+  });
 
   return (
     <>
       <Drawer
-        open={open}
+        open={openSidebar}
         onClose={toggleDrawer(false)}
-        variant='permanent'
+        variant="permanent"
         sx={{
           width: "300px",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: "300px",
-            boxSizing: "border-box",
-          },
+            boxSizing: "border-box"
+          }
         }}
-        anchor='left'>
-        <Box role='presentation' onClick={(e) => e.stopPropagation()}>
+        anchor="left"
+      >
+        <Box role="presentation" onClick={(e) => e.stopPropagation()}>
           <List>
-            {sidebarData.map((service, index) => {
+            <ListItemButton
+              onClick={() => navigate("/")}
+              sx={{
+                py: 2
+              }}
+            >
+              <HomeIcon />
+            </ListItemButton>
+            {updatedSidebar.map((item, index) => {
               return (
                 <div key={index}>
-                  {service.subItems ? (
-                    <ListItemButton
-                      key={index}
-                      onClick={handleClick(index)}
-                      sx={{
-                        py: 2,
-                      }}>
-                      <ListItemText primary={service.text} />
-                      {openMenu[index] ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                  ) : (
-                    <ListItemButton
-                      sx={{
-                        py: 2,
-                      }}>
-                      <HomeIcon />
-                    </ListItemButton>
-                  )}
-                  {service.subItems && (
-                    <Collapse in={openMenu[index]} timeout='auto' unmountOnExit>
-                      <List component='div' disablePadding>
-                        <Box className='pl-2'>
-                          <ChevronLeftIcon onClick={handleClick(index)} />
-                        </Box>
-                        {service.subItems.map((subItem, subIndex) => {
+                  <ListItemButton
+                    key={index}
+                    sx={{
+                      py: 2
+                    }}
+                    onClick={() => handleSideItem(item)}
+                  >
+                    <ListItemText
+                      className={
+                        selectedMenu === item.value ? "text-primary" : ""
+                      }
+                      primary={item.title}
+                    />
+                    {item.subItems &&
+                      (subItemOpen[item.value] ? (
+                        <ExpandLess />
+                      ) : (
+                        <ExpandMore />
+                      ))}
+                  </ListItemButton>
+
+                  {item.subItems && (
+                    <Collapse
+                      in={subItemOpen[item.value]}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <List component="div" disablePadding>
+                        {item.subItems.map((subItem, subIndex) => {
                           return (
                             <ListItemButton
                               key={subIndex}
                               sx={{
-                                pl: 4,
-                              }}>
-                              <ListItemText primary={subItem.text} />
+                                pl: 4
+                              }}
+                              onClick={() => handleSideSubItem(item, subItem)}
+                            >
+                              <ListItemText
+                                className={
+                                  selectedSubMenu === subItem.value
+                                    ? "text-primary"
+                                    : ""
+                                }
+                                primary={subItem.subtitle}
+                              />
                             </ListItemButton>
                           );
                         })}
                       </List>
                     </Collapse>
                   )}
+
                   <Divider
                     sx={{
-                      borderColor: "hsla(0,0%,55%,.2)",
+                      borderColor: "hsla(0,0%,55%,.2)"
                     }}
                   />
                 </div>
