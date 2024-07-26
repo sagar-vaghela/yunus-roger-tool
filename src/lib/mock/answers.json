@@ -1,0 +1,24 @@
+{
+  "NURSING": [
+    {
+      "question": "SUMMARIZE THE EVENTS LEADING TO THE PATIENT'S REFERRAL TO HOME HEALTH AS IDENTIFIED ON THE CLINICAL COMMENT INTAKE NOTE:",
+      "answer": "Patient was referred to home health by their physician for skilled nursing care.",
+      "type": "text"
+    },
+    {
+      "question": "ARE FUTURE SKILLED NURSING VISITS PLANNED?",
+      "answer": "NO",
+      "type": "radio"
+    },
+    {
+      "question": "SELECT REASON WHY THERE IS NOT A SKILLED NEED FOR NURSING CARE:",
+      "answer": ["PATIENT/CAREGIVER REFUSES FURTHER VISITS", "OTHER"],
+      "type": "multiselect"
+    },
+    {
+      "question": "EXPLAIN WHY THERE ISN'T A SKILLED NEED FOR NURSING CARE:",
+      "answer": "Patient has fully recovered and no longer requires skilled nursing care.",
+      "type": "text"
+    }
+  ]
+}

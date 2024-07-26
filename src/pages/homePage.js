@@ -6,7 +6,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const handleEnter = () => {
-    navigate("/physicalAssessments");
+    navigate("/mileage");
   };
 
   return (

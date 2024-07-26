@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuestionsList from "../containers/QuestionsList";
 import {
   Box,
   Typography,
   FormControlLabel,
   Checkbox,
-  FormGroup,
+  FormGroup
 } from "@mui/material";
 
-function MultiSelect({ question, options, subitems, onChange }) {
+function MultiSelect({
+  question,
+  options,
+  subitems,
+  onChange,
+  answerData,
+  setFormData,
+  formData
+}) {
   const [selectedOptions, setSelectedOptions] = useState([]);
+
+  // useEffect(() => {
+  //   if (formData[question]) {
+  //     setSelectedOptions(formData[question]);
+  //   }
+  // }, [formData, question]);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
@@ -35,7 +49,14 @@ function MultiSelect({ question, options, subitems, onChange }) {
       return selectedOptions.flatMap(
         (selectedOption) =>
           subitems[selectedOption]?.map((subitem, index) => (
-            <QuestionsList key={index} data={subitem} />
+            <QuestionsList
+              key={index}
+              data={subitem}
+              onChange={onChange}
+              answerData={answerData}
+              formData={formData}
+              setFormData={setFormData}
+            />
           )) || []
       );
     }
@@ -43,9 +64,9 @@ function MultiSelect({ question, options, subitems, onChange }) {
 
   return (
     <div>
-      <Box className='flex flex-col gap-2 py-4'>
+      <Box className="flex flex-col gap-2 py-4">
         <Box>
-          <Typography className='text-base capitalize'>{question}</Typography>
+          <Typography className="text-base capitalize">{question}</Typography>
         </Box>
         <FormGroup>
           {options.map((option, index) => (
@@ -58,8 +79,8 @@ function MultiSelect({ question, options, subitems, onChange }) {
                   value={option}
                   sx={{
                     "&.Mui-checked": {
-                      color: "#7e63ed",
-                    },
+                      color: "#7e63ed"
+                    }
                   }}
                 />
               }
