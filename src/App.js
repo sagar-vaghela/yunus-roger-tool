@@ -2,7 +2,7 @@ import React from "react";
 import {
   Navigate,
   RouterProvider,
-  createBrowserRouter
+  createBrowserRouter,
 } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import PhysicalAssessments from "./pages/physicalAssessments";
@@ -15,13 +15,13 @@ import QuestionPage from "./pages/questionPage";
 const App = () => {
   function PrivateRoute({ children }) {
     const isAuthenticated = true;
-    return isAuthenticated ? children : <Navigate to="/" />;
+    return isAuthenticated ? children : <Navigate to='/' />;
   }
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />
+      element: <HomePage />,
     },
     {
       path: "/physicalAssessments",
@@ -31,7 +31,7 @@ const App = () => {
             <PhysicalAssessments />
           </Layout>
         </PrivateRoute>
-      )
+      ),
     },
     {
       path: "/goalsAndInterventions",
@@ -41,7 +41,7 @@ const App = () => {
             <GoalsInterventions />
           </Layout>
         </PrivateRoute>
-      )
+      ),
     },
     {
       path: "/mileage",
@@ -51,7 +51,7 @@ const App = () => {
             <Mileage />
           </Layout>
         </PrivateRoute>
-      )
+      ),
     },
     {
       path: "/:queName/:queId",
@@ -61,7 +61,7 @@ const App = () => {
             <QuestionPage />
           </Layout>
         </PrivateRoute>
-      )
+      ),
     },
     {
       path: "/planOfCare",
@@ -71,8 +71,8 @@ const App = () => {
             <PlanCare />
           </Layout>
         </PrivateRoute>
-      )
-    }
+      ),
+    },
   ]);
 
   return <RouterProvider router={router} />;

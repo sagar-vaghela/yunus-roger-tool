@@ -3,6 +3,9 @@ import Input from "../components/Input";
 import Radio from "../components/Radio";
 import MultiSelect from "../components/MultiSelect";
 import { useParams } from "react-router-dom";
+import Date from "../components/Date";
+import Null from "../components/Null";
+import Number from "../components/Number";
 
 const QuestionsList = ({ data }) => {
   const params = useParams();
@@ -28,17 +31,20 @@ const QuestionsList = ({ data }) => {
             subitems={data.subitems}
           />
         );
+      case "date":
+        return <Date question={data.question} />;
+ case "number":
+        return <Number question={data.question} />;
+      case "null":
+        return <Null question={data.question} />;
+      case "unknown":
+        return <Null question={data.question} />;
       default:
         break;
     }
   };
 
-  return (
-    <div>
-      <h1 className="capitalize mb-4">{params.queId}</h1>
-      {/* {renderItems()} */}
-    </div>
-  );
+  return <div>{renderItems()}</div>;
 };
 
 export default QuestionsList;

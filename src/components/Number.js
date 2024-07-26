@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from "@mui/material";
 import React from "react";
 
-const Input = ({ question }) => {
+const Number = ({ question }) => {
   return (
     <>
       <Box className='flex flex-col gap-4 py-4'>
@@ -11,9 +11,10 @@ const Input = ({ question }) => {
         <Box>
           <TextField
             id='outlined-basic'
-            label='Enter Your Text'
+            label='Enter Your Number'
             variant='outlined'
             fullWidth
+            inputProps={{ type: "number" }}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
@@ -25,7 +26,6 @@ const Input = ({ question }) => {
                   color: "#7e63ed",
                 },
               },
-              
             }}
           />
         </Box>
@@ -34,4 +34,4 @@ const Input = ({ question }) => {
   );
 };
 
-export default Input;
+export default Number;

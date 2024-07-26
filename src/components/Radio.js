@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import QuestionsList from "../containers/QuestionsList";
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
+  Typography,
+  Radio,
+} from "@mui/material";
 
-function Radio({ question, options, subitems, onChange }) {
+function RadioQuestion({ question, options, subitems, onChange }) {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
@@ -23,26 +31,41 @@ function Radio({ question, options, subitems, onChange }) {
 
   return (
     <div>
-      <p>{question}</p>
-      <div>
-        {options?.map((option, index) => {
-          return (
-            <div key={index}>
-              <input
-                type="radio"
-                id={option}
-                name={question}
-                value={option}
-                checked={selectedOption === option}
-                onChange={handleOptionChange}
-              />
-              <label htmlFor={option}>{option}</label>
-            </div>
-          );
-        })}
-      </div>
+      <Box className='flex flex-col gap-2 py-4'>
+        <Box>
+          <Typography className='text-base capitalize'>{question}</Typography>
+        </Box>
+
+        <FormControl component='fieldset'>
+          <RadioGroup
+            name={question}
+            value={selectedOption}
+            onChange={handleOptionChange}
+            row>
+            <Box className='flex flex-wrap gap-3'>
+              {options?.map((option, index) => (
+                <FormControlLabel
+                  key={index}
+                  value={option}
+                  control={
+                    <Radio
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#7e63ed",
+                        },
+                      }}
+                    />
+                  }
+                  label={option}
+                />
+              ))}
+            </Box>
+          </RadioGroup>
+        </FormControl>
+      </Box>
       <div>{renderSubitems()}</div>
     </div>
   );
 }
-export default Radio;
+
+export default RadioQuestion;

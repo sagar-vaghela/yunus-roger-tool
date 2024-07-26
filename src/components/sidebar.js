@@ -6,7 +6,7 @@ import {
   Drawer,
   List,
   ListItemButton,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import HomeIcon from "@mui/icons-material/Home";
@@ -28,7 +28,7 @@ const SideBar = () => {
     if (params.queId) {
       setSelectedSubMenu(params.queId);
       setSubItemOpen({
-        [params.queName]: true
+        [params.queName]: true,
       });
     }
     if (params.queName) {
@@ -39,12 +39,12 @@ const SideBar = () => {
   const handleSideItem = (item) => {
     setSelectedMenu(item.value);
     setSubItemOpen({
-      [item.value]: !subItemOpen[item.value]
+      [item.value]: !subItemOpen[item.value],
     });
 
     if (item.subItems) {
       setSubItemOpen({
-        [item.value]: !subItemOpen[item.value]
+        [item.value]: !subItemOpen[item.value],
       });
 
       const subItem = item.subItems.find((subItem) => {
@@ -70,42 +70,42 @@ const SideBar = () => {
   };
 
   const updatedSidebar = sidebarData.map((item) => {
-    if (item.value === "mileage") {
+    if (item.value === "physicalAssessments") {
       return {
         ...item,
-        subItems: subSidebarData(item.value)
+        subItems: subSidebarData(item.value),
       };
     } else {
       return {
-        ...item
+        ...item,
       };
     }
   });
 
+  console.log("updatedSidebar",updatedSidebar)
+  
   return (
     <>
       <Drawer
         open={openSidebar}
         onClose={toggleDrawer(false)}
-        variant="permanent"
+        variant='permanent'
         sx={{
           width: "300px",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: "300px",
-            boxSizing: "border-box"
-          }
+            boxSizing: "border-box",
+          },
         }}
-        anchor="left"
-      >
-        <Box role="presentation" onClick={(e) => e.stopPropagation()}>
+        anchor='left'>
+        <Box role='presentation' onClick={(e) => e.stopPropagation()}>
           <List>
             <ListItemButton
               onClick={() => navigate("/")}
               sx={{
-                py: 2
-              }}
-            >
+                py: 2,
+              }}>
               <HomeIcon />
             </ListItemButton>
             {updatedSidebar.map((item, index) => {
@@ -114,15 +114,15 @@ const SideBar = () => {
                   <ListItemButton
                     key={index}
                     sx={{
-                      py: 2
+                      py: 2,
                     }}
-                    onClick={() => handleSideItem(item)}
-                  >
+                    onClick={() => handleSideItem(item)}>
                     <ListItemText
                       className={
                         selectedMenu === item.value ? "text-primary" : ""
                       }
                       primary={item.title}
+                      onClick={() => handleSideItem(item)}
                     />
                     {item.subItems &&
                       (subItemOpen[item.value] ? (
@@ -135,19 +135,17 @@ const SideBar = () => {
                   {item.subItems && (
                     <Collapse
                       in={subItemOpen[item.value]}
-                      timeout="auto"
-                      unmountOnExit
-                    >
-                      <List component="div" disablePadding>
+                      timeout='auto'
+                      unmountOnExit>
+                      <List component='div' disablePadding>
                         {item.subItems.map((subItem, subIndex) => {
                           return (
                             <ListItemButton
                               key={subIndex}
                               sx={{
-                                pl: 4
+                                pl: 4,
                               }}
-                              onClick={() => handleSideSubItem(item, subItem)}
-                            >
+                              onClick={() => handleSideSubItem(item, subItem)}>
                               <ListItemText
                                 className={
                                   selectedSubMenu === subItem.value
@@ -165,7 +163,7 @@ const SideBar = () => {
 
                   <Divider
                     sx={{
-                      borderColor: "hsla(0,0%,55%,.2)"
+                      borderColor: "hsla(0,0%,55%,.2)",
                     }}
                   />
                 </div>
