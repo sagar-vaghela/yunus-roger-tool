@@ -16,22 +16,25 @@ function RadioQuestion({
   onChange,
   formData,
   setFormData,
-  answerData
+  answerData,
+  answerFillup,
+  queId
 }) {
   const [selectedOption, setSelectedOption] = useState("");
 
-  // useEffect(() => {
-  //   if (formData[question]) {
-  //     setSelectedOption(formData[question]);
-  //   }
-  // }, [formData, question]);
+  useEffect(() => {
+    if (formData[question]) {
+      setSelectedOption(formData[question]);
+    }
+  }, [formData, question]);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
+    console.log("selectedValue=-=-", selectedValue);
 
     if (onChange) {
-      onChange(selectedValue);
+      onChange(question, selectedValue);
     }
   };
 
@@ -46,6 +49,8 @@ function RadioQuestion({
             answerData={answerData}
             formData={formData}
             setFormData={setFormData}
+            answerFillup={answerFillup}
+            queId={queId}
           />
         );
       });

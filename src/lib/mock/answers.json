@@ -20,5 +20,24 @@
       "answer": "Patient has fully recovered and no longer requires skilled nursing care.",
       "type": "text"
     }
+  ],
+  "CARE COORDINATION": [
+    {
+      "question": "NAME OF PROVIDER CONTACTED TO OBTAIN APPROVAL OF HOME HEALTH PLAN OF CARE AND CONFIRMATION TO SIGN ORDERS:",
+      "answer": "test",
+      "type": "text"
+    },
+    {
+      "question": "INDICATE OTHER DISCIPLINES ADDED TO THE POC:",
+      "answer": ["SKILLED NURSING"],
+      "type": "multiselect"
+    }
+  ],
+  "PATIENT_IDENTIFIER": [
+    {
+      "question": "INDICATE TWO PATIENT IDENTIFIERS USED TO IDENTIFY THE PATIENT:",
+      "answer": ["SOCIAL SECURITY NUMBER"],
+      "type": "multiselect"
+    }
   ]
 }

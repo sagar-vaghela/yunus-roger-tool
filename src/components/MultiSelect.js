@@ -15,15 +15,17 @@ function MultiSelect({
   onChange,
   answerData,
   setFormData,
-  formData
+  formData,
+  answerFillup,
+  queId
 }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // useEffect(() => {
-  //   if (formData[question]) {
-  //     setSelectedOptions(formData[question]);
-  //   }
-  // }, [formData, question]);
+  useEffect(() => {
+    if (formData[question]) {
+      setSelectedOptions(formData[question]);
+    }
+  }, [formData, question]);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
@@ -40,7 +42,7 @@ function MultiSelect({
     setSelectedOptions(updatedOptions);
 
     if (onChange) {
-      onChange(updatedOptions);
+      onChange(question, updatedOptions);
     }
   };
 
@@ -56,6 +58,8 @@ function MultiSelect({
               answerData={answerData}
               formData={formData}
               setFormData={setFormData}
+              answerFillup={answerFillup}
+              queId={queId}
             />
           )) || []
       );

@@ -16,9 +16,9 @@ const Input = ({ question, formData, onChange }) => {
             id="outlined-basic"
             label="Enter Your Text"
             variant="outlined"
-            // value={formData[question] || ""}
+            value={formData[question] || ""}
             fullWidth
-            // onChange={handleInputChange}
+            onChange={handleInputChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {

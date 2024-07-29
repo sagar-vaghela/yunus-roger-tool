@@ -2,31 +2,31 @@ import React, { useEffect } from "react";
 import Input from "../components/Input";
 import Radio from "../components/Radio";
 import MultiSelect from "../components/MultiSelect";
-import Date from "../components/Date";
 import Null from "../components/Null";
 import Number from "../components/Number";
+import DatePickerField from "../components/DatePickerField";
 
 const QuestionsList = ({
   data,
   answerData,
   onChange,
   formData,
-  setFormData
+  setFormData,
+  answerFillup,
+  queId
 }) => {
-  console.log("answerData", answerData);
-
   const findAnswer = answerData?.find(
     (answer) => answer.question === data.question
   );
 
   useEffect(() => {
-    if (findAnswer) {
+    if (findAnswer && answerFillup[queId]) {
       setFormData((prevData) => ({
         ...prevData,
         [data.question]: findAnswer.answer
       }));
     }
-  }, [findAnswer, data.question, setFormData]);
+  }, [findAnswer, data.question, setFormData, answerFillup]);
 
   const renderItems = () => {
     switch (data.type) {
@@ -49,6 +49,8 @@ const QuestionsList = ({
             formData={formData}
             setFormData={setFormData}
             answerData={answerData}
+            answerFillup={answerFillup}
+            queId={queId}
           />
         );
       case "multiselect":
@@ -61,11 +63,14 @@ const QuestionsList = ({
             formData={formData}
             setFormData={setFormData}
             answerData={answerData}
+            answerFillup={answerFillup}
+            queId={queId}
+
           />
         );
       case "date":
         return (
-          <Date
+          <DatePickerField
             question={data.question}
             onChange={onChange}
             formData={formData}

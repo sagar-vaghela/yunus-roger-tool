@@ -14,6 +14,7 @@ import { sidebarData } from "../lib/mock/mockData";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { subSidebarData } from "../helper/helper";
 import { ExpandLess } from "@mui/icons-material";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const SideBar = () => {
   const navigate = useNavigate();
@@ -87,6 +88,14 @@ const SideBar = () => {
     }
   });
 
+  const handelBack = () => {
+    navigate("/mileage");
+    setSelectedMenu("mileage");
+    setOpenSidebar(false);
+    setSelectedSubMenu("");
+    setSubItemOpen({});
+  };
+
   return (
     <>
       <Drawer
@@ -113,6 +122,16 @@ const SideBar = () => {
             >
               <HomeIcon />
             </ListItemButton>
+
+            <ListItemButton
+              onClick={handelBack}
+              sx={{
+                py: 2
+              }}
+            >
+              <KeyboardBackspaceIcon />
+            </ListItemButton>
+
             {updatedSidebar.map((item, index) => {
               return (
                 <div key={index}>

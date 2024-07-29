@@ -11,6 +11,7 @@ import GoalsInterventions from "./pages/goalsInterventions";
 import Mileage from "./pages/mileage";
 import PlanCare from "./pages/planCare";
 import QuestionPage from "./pages/questionPage";
+import Transcript from "./pages/transcript";
 
 const App = () => {
   function PrivateRoute({ children }) {
@@ -69,6 +70,16 @@ const App = () => {
         <PrivateRoute>
           <Layout>
             <PlanCare />
+          </Layout>
+        </PrivateRoute>
+      )
+    },
+    {
+      path: "/transcript",
+      element: (
+        <PrivateRoute>
+          <Layout>
+            <Transcript />
           </Layout>
         </PrivateRoute>
       )
