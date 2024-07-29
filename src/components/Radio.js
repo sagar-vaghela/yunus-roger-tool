@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Typography,
-  Radio
+  Radio,
 } from "@mui/material";
 
 function RadioQuestion({
@@ -16,15 +16,15 @@ function RadioQuestion({
   onChange,
   formData,
   setFormData,
-  answerData
+  answerData,
 }) {
   const [selectedOption, setSelectedOption] = useState("");
 
-  // useEffect(() => {
-  //   if (formData[question]) {
-  //     setSelectedOption(formData[question]);
-  //   }
-  // }, [formData, question]);
+  useEffect(() => {
+    if (formData[question]) {
+      setSelectedOption(formData[question]);
+    }
+  }, [formData, question]);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
@@ -54,19 +54,18 @@ function RadioQuestion({
 
   return (
     <div>
-      <Box className="flex flex-col gap-2 py-4">
+      <Box className='flex flex-col gap-2 py-4'>
         <Box>
-          <Typography className="text-base capitalize">{question}</Typography>
+          <Typography className='text-base capitalize'>{question}</Typography>
         </Box>
 
-        <FormControl component="fieldset">
+        <FormControl component='fieldset'>
           <RadioGroup
             name={question}
             value={selectedOption}
             onChange={handleOptionChange}
-            row
-          >
-            <Box className="flex flex-wrap gap-3">
+            row>
+            <Box className='flex flex-wrap gap-3'>
               {options?.map((option, index) => (
                 <FormControlLabel
                   key={index}
@@ -75,8 +74,8 @@ function RadioQuestion({
                     <Radio
                       sx={{
                         "&.Mui-checked": {
-                          color: "#7e63ed"
-                        }
+                          color: "#7e63ed",
+                        },
                       }}
                     />
                   }

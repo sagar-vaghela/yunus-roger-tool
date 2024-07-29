@@ -19,11 +19,11 @@ function MultiSelect({
 }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // useEffect(() => {
-  //   if (formData[question]) {
-  //     setSelectedOptions(formData[question]);
-  //   }
-  // }, [formData, question]);
+  useEffect(() => {
+    if (formData[question]) {
+      setSelectedOptions(formData[question]);
+    }
+  }, [formData, question]);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;

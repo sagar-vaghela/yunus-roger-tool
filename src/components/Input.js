@@ -7,29 +7,29 @@ const Input = ({ question, formData, onChange }) => {
   };
   return (
     <>
-      <Box className="flex flex-col gap-4 py-4">
+      <Box className='flex flex-col gap-4 py-4'>
         <Box>
-          <Typography className="text-base capitalize">{question}</Typography>
+          <Typography className='text-base capitalize'>{question}</Typography>
         </Box>
         <Box>
           <TextField
-            id="outlined-basic"
-            label="Enter Your Text"
-            variant="outlined"
-            // value={formData[question] || ""}
+            id='outlined-basic'
+            label='Enter Your Text'
+            variant='outlined'
+            value={formData[question] || ""}
             fullWidth
-            // onChange={handleInputChange}
+            onChange={handleInputChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
-                  borderColor: "#7e63ed"
-                }
+                  borderColor: "#7e63ed",
+                },
               },
               "& .MuiInputLabel-root": {
                 "&.Mui-focused": {
-                  color: "#7e63ed"
-                }
-              }
+                  color: "#7e63ed",
+                },
+              },
             }}
           />
         </Box>

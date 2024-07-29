@@ -11,19 +11,19 @@ const QuestionsList = ({
   answerData,
   onChange,
   formData,
-  setFormData
+  setFormData,
+  showAnswers,
 }) => {
-  console.log("answerData", answerData);
-
   const findAnswer = answerData?.find(
     (answer) => answer.question === data.question
   );
+
 
   useEffect(() => {
     if (findAnswer) {
       setFormData((prevData) => ({
         ...prevData,
-        [data.question]: findAnswer.answer
+        [data.question]: findAnswer.answer,
       }));
     }
   }, [findAnswer, data.question, setFormData]);
@@ -48,7 +48,7 @@ const QuestionsList = ({
             onChange={onChange}
             formData={formData}
             setFormData={setFormData}
-            answerData={answerData}
+            answerData={showAnswers ? answerData : []}
           />
         );
       case "multiselect":
@@ -60,7 +60,7 @@ const QuestionsList = ({
             onChange={onChange}
             formData={formData}
             setFormData={setFormData}
-            answerData={answerData}
+            answerData={showAnswers ? answerData : []}
           />
         );
       case "date":
