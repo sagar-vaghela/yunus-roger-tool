@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import questionJson from "../lib/mock/hchb.json";
 import answerJson from "../lib/mock/answers.json";
 import QuestionsList from "../containers/QuestionsList";
 import { Box, Button, Card, Grid, Typography } from "@mui/material";
 import CommonModal from "../components/CommonModal";
 import HNPSSummary from "../containers/HNPSSummary";
+import { htmlContent } from "../lib/mock/mockData";
 
 const QuestionPage = () => {
   const params = useParams();
-  const navigate = useNavigate();
 
   const { queName, queId } = params;
 
@@ -42,13 +42,16 @@ const QuestionPage = () => {
       [queId]: true
     });
   };
- 
+
   const handleHNPSummary = () => {
     setOpenHNPS(true);
   };
 
   const handleTranscript = () => {
-    navigate(`/transcript`);
+    const doc = window.open("", "_blank");
+    doc.document.open();
+    doc.document.write(htmlContent);
+    doc.document.close();
   };
 
   const breadcumTitle = queName
